@@ -33,3 +33,11 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## 部署
+
+### 安装node
+
+### 执行命令 npm i -g http-server
+
+### 进入打包后的目录 运行 `http-server` 命令
