@@ -189,58 +189,5 @@ const toggle = (index) => {
 </template>
 
 <style lang="scss" scoped>
-.main {
-  height: 100%;
-  padding: 0 40px;
-  display: flex;
-  flex-direction: column;
-}
-.title {
-  text-align: center;
-  padding: 40px 0;
-  font-weight: bold;
-  .back {
-    cursor: pointer;
-  }
-}
-
-.question {
-  flex: 1;
-  overflow-y: auto;
-  .question-title {
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 10px;
-    .number {
-      display: inline-block;
-      text-align: center;
-      min-width: 100px;
-      font-size: 48px;
-      font-weight: bold;
-    }
-  }
-  .content {
-    font-size: 24px;
-    text-indent: 48px;
-  }
-  .options {
-    margin-top: 10px;
-    .option-index {
-      margin-right: 8px;
-    }
-  }
-
-  .answer {
-    margin-top: 40px;
-  }
-}
-
-.select {
-  padding: 40px 0;
-  display: flex;
-  .center {
-    margin: 0 20px;
-    flex: 1;
-  }
-}
+@import "../assets/part.scss";
 </style>

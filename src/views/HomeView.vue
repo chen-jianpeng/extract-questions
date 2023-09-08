@@ -34,6 +34,10 @@ const menus = [
   padding: 0 40px;
   display: flex;
   align-items: center;
+  background-image: url("/images/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
   .button-wrap {
     width: 100%;
@@ -47,6 +51,9 @@ const menus = [
       }
       .button {
         width: 100%;
+        font-size: 36px;
+        height: 60px;
+        line-height: 60px;
       }
     }
   }
