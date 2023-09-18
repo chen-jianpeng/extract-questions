@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { Back } from "@element-plus/icons-vue";
 import { randomNumbers, generatedRandomNumbers } from "@/utils";
+import partIcon from "@/assets/partFour.jpg";
 
 const router = useRouter();
 
@@ -82,6 +83,10 @@ const toggle = (index) => {
     status[index] = true;
   }
 };
+
+const handleChange = (type) => {
+  currentType.value = type.value;
+};
 </script>
 
 <template>
@@ -89,98 +94,109 @@ const toggle = (index) => {
     <h1 class="title">
       <el-space>
         <el-icon @click="router.back()" class="back"><Back /></el-icon>
+        <img :src="partIcon" style="width: 80px" />
         <span>尖峰对决</span>
       </el-space>
     </h1>
 
-    <el-card class="question">
-      <div class="question-title">
-        第
-        <span class="number">
-          {{
-            typeof showNumber[currentType] === "number"
-              ? showNumber[currentType] + 1
-              : "-"
-          }}
-        </span>
-        题
-      </div>
-
-      <div
-        class="content"
-        v-if="
-          typeof showNumber[currentType] === 'number' && !status[currentType]
-        "
-      >
-        <div>
-          {{ questions[currentType]?.[showNumber?.[currentType]]?.question }}
-        </div>
-
-        <div
-          v-if="
-            questions[currentType]?.[showNumber?.[currentType]]?.options
-              ?.length > 0
-          "
-          class="options"
-        >
-          <div
-            v-for="(option, index) in questions[currentType]?.[
-              showNumber?.[currentType]
-            ]?.options"
-            :key="index"
-            class="option-item"
-          >
-            <span class="option-index">{{ optionMap[index] }}.</span>
-            <span>{{ option }}</span>
-          </div>
-        </div>
-
-        <div class="answer" v-if="showAnswer">
-          <div>正确答案:</div>
-          <div>
-            {{ questions[currentType]?.[showNumber?.[currentType]]?.answer }}
-          </div>
-        </div>
-      </div>
-    </el-card>
-
-    <div class="select">
-      <div class="left">
-        <el-radio-group
-          v-model="currentType"
-          size="large"
-          style="margin-bottom: 10px"
-        >
-          <el-radio-button
-            v-for="(type, index) in types"
-            :key="index"
-            :label="type.value"
+    <div class="center">
+      <div class="center-left">
+        <div v-for="(type, index) in types" :key="index">
+          <el-button
+            @click="handleChange(type)"
+            style="margin-bottom: 20px; width: 100%"
+            :type="currentType === type.value ? 'primary' : ''"
           >
             {{ type.label }}
-          </el-radio-button>
-        </el-radio-group>
+          </el-button>
+        </div>
       </div>
-      <div class="center">
-        <el-button
-          @click="toggle(currentType)"
-          size="large"
-          style="width: 100%"
-          :type="status[currentType] ? 'danger' : 'success'"
-        >
-          {{ status[currentType] ? "停止" : "开始" }}
-        </el-button>
-      </div>
-      <div class="right">
-        <el-button
-          type="primary"
-          size="large"
-          @click="showAnswer = !showAnswer"
-          :disabled="
-            status[currentType] || typeof showNumber?.[currentType] !== 'number'
-          "
-        >
-          {{ showAnswer ? "隐藏答案" : "查看答案" }}
-        </el-button>
+
+      <div class="center-right">
+        <div class="center-right">
+          <el-card class="question">
+            <div class="question-title">
+              第
+              <span class="number">
+                {{
+                  typeof showNumber[currentType] === "number"
+                    ? showNumber[currentType] + 1
+                    : "-"
+                }}
+              </span>
+              题
+            </div>
+
+            <div
+              class="content"
+              v-if="
+                typeof showNumber[currentType] === 'number' &&
+                !status[currentType]
+              "
+            >
+              <div>
+                {{
+                  questions[currentType]?.[showNumber?.[currentType]]?.question
+                }}
+              </div>
+
+              <div
+                v-if="
+                  questions[currentType]?.[showNumber?.[currentType]]?.options
+                    ?.length > 0
+                "
+                class="options"
+              >
+                <div
+                  v-for="(option, index) in questions[currentType]?.[
+                    showNumber?.[currentType]
+                  ]?.options"
+                  :key="index"
+                  class="option-item"
+                >
+                  <span class="option-index">{{ optionMap[index] }}.</span>
+                  <span>{{ option }}</span>
+                </div>
+              </div>
+
+              <div class="answer" v-if="showAnswer">
+                <div>正确答案:</div>
+                <div>
+                  {{
+                    questions[currentType]?.[showNumber?.[currentType]]?.answer
+                  }}
+                </div>
+              </div>
+            </div>
+          </el-card>
+
+          <div class="select">
+            <div class="button-wrap" style="margin-right: 10px">
+              <el-button
+                @click="toggle(currentType)"
+                size="large"
+                style="width: 100%"
+                :type="status[currentType] ? 'danger' : 'success'"
+              >
+                {{ status[currentType] ? "停止" : "开始" }}
+              </el-button>
+            </div>
+            <div class="button-wrap" style="margin-left: 10px">
+              <el-button
+                type="primary"
+                size="large"
+                style="width: 100%"
+                @click="showAnswer = !showAnswer"
+                :disabled="
+                  status[currentType] ||
+                  typeof showNumber?.[currentType] !== 'number'
+                "
+              >
+                {{ showAnswer ? "隐藏答案" : "查看答案" }}
+              </el-button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
